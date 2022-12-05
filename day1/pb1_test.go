@@ -1,6 +1,7 @@
-package day1
+package day1_test
 
 import (
+	"aoc2022/day1"
 	_ "embed"
 	"fmt"
 	"strconv"
@@ -19,7 +20,7 @@ func TestElfWithMostFood(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	result, err := ElfWithMostFood(testData)
+	result, err := day1.ElfWithMostFood(testData)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -32,7 +33,7 @@ func TestTop3ElvesWithMostFood(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	food := TopNElvesWithMostFood(testData, 3)
+	food := day1.TopNElvesWithMostFood(testData, 3)
 	if food == 0 {
 		t.Fatal("top 3 elves have 0 food")
 	}
