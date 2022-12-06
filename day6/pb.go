@@ -1,5 +1,9 @@
 package day6
 
+import (
+	"fmt"
+)
+
 // your subroutine needs to identify the first position where
 // the four most recently received characters were all different.
 
@@ -39,9 +43,46 @@ func FindIndexOfNConsecutiveDistinctCharacters(in string, n int) int {
 	return 0
 }
 
+func FindIndexOfNConsecDisctincCharsSuboptimal(in string, n int) (int, error) {
+	characters := []rune(in)
+
+	validateAllDifferent := func(runes []rune) bool {
+		occurencesByRune := map[rune]struct{}{}
+
+		for _, r := range runes {
+			// val, exists := occurencesByRune[r]
+			// val := occurencesByRune[r]
+			// _, exists := occurencesByRune[r]
+
+			_, exists := occurencesByRune[r]
+			if exists {
+				return false
+			}
+
+			occurencesByRune[r] = struct{}{}
+		}
+		return true
+	}
+
+	// 0, 1, 2, 3, 4
+	lastNChars := make([]rune, n)
+	for i := n - 1; i < len(characters); i++ {
+
+		for j, k := i, n-1; j > i-n; j, k = j-1, k-1 {
+			lastNChars[k] = characters[j]
+		}
+
+		if validateAllDifferent(lastNChars) {
+			return i + 1, nil
+		}
+	}
+
+	return 0, fmt.Errorf("did not find %v distinct chars", n)
+}
+
 type MappedQueue struct {
 	countsByRune map[rune]int
-	head, tail   *Node
+	head, tail   *Node // queue
 }
 
 func (q *MappedQueue) Enqueue(in rune) {

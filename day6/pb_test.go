@@ -27,6 +27,29 @@ func TestQueue(t *testing.T) {
 func TestFindIndexOf4ConsecutiveDistinctCharacters(t *testing.T) {
 	position := day6.FindIndexOfNConsecutiveDistinctCharacters(in, 4)
 	fmt.Println("for 4:", position)
+
+	v2, err := day6.FindIndexOfNConsecDisctincCharsSuboptimal(in, 4)
+	require.NoError(t, err)
+	require.Equal(t, position, v2)
+
+	///////////////
+
 	position = day6.FindIndexOfNConsecutiveDistinctCharacters(in, 14)
 	fmt.Println("for 14:", position)
+
+	v2, err = day6.FindIndexOfNConsecDisctincCharsSuboptimal(in, 14)
+	require.NoError(t, err)
+	require.Equal(t, position, v2)
+}
+
+func BenchmarkFindIndexOf4ConsecutiveDistinctCharacters(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		day6.FindIndexOfNConsecutiveDistinctCharacters(in, 14)
+	}
+}
+
+func BenchmarkFindIndexOf4ConsecutiveDistinctCharactersV2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		day6.FindIndexOfNConsecDisctincCharsSuboptimal(in, 14)
+	}
 }
