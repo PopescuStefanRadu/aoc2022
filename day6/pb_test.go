@@ -32,6 +32,9 @@ func TestFindIndexOf4ConsecutiveDistinctCharacters(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, position, v2)
 
+	v3 := day6.FindIndexOfNConsecutiveDistinctCharactersOptimal(in, 4)
+	require.Equal(t, position, v3)
+
 	///////////////
 
 	position = day6.FindIndexOfNConsecutiveDistinctCharacters(in, 14)
@@ -40,6 +43,9 @@ func TestFindIndexOf4ConsecutiveDistinctCharacters(t *testing.T) {
 	v2, err = day6.FindIndexOfNConsecDisctincCharsSuboptimal(in, 14)
 	require.NoError(t, err)
 	require.Equal(t, position, v2)
+
+	v3 = day6.FindIndexOfNConsecutiveDistinctCharactersOptimal(in, 14)
+	require.Equal(t, position, v3)
 }
 
 func BenchmarkFindIndexOf4ConsecutiveDistinctCharacters(b *testing.B) {
@@ -51,5 +57,11 @@ func BenchmarkFindIndexOf4ConsecutiveDistinctCharacters(b *testing.B) {
 func BenchmarkFindIndexOf4ConsecutiveDistinctCharactersV2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		day6.FindIndexOfNConsecDisctincCharsSuboptimal(in, 14)
+	}
+}
+
+func BenchmarkFindIndexOf4ConsecutiveDistinctCharactersOptimal(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		day6.FindIndexOfNConsecutiveDistinctCharactersOptimal(in, 14)
 	}
 }
